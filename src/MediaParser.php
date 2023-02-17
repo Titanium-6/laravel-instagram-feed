@@ -11,7 +11,7 @@ class MediaParser
         return match ($media['media_type']) {
             'IMAGE' => static::parseAsImage($media),
             'VIDEO' => static::parseAsVideo($media, $ignore_video),
-            'CAROUSEL_ALBUM' => static::parseAsCarousel($media, $ignore_video),
+            //'CAROUSEL_ALBUM' => static::parseAsCarousel($media, $ignore_video),
             default => null,
         };
     }
