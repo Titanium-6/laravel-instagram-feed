@@ -3,3 +3,5 @@
 .DS_Store
 .phpunit.*
 composer.lock
+*.code-workspace
+/.vscode
