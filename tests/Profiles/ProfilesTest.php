@@ -136,7 +136,6 @@ class ProfilesTest extends TestCase
 
         $profile->refreshToken();
 
-
         $this->assertDatabaseHas('dymantic_instagram_feed_tokens', [
             'profile_id'           => $profile->id,
             'access_code'          => 'REFRESHED_LONG_LIVED_TOKEN',
@@ -170,8 +169,7 @@ class ProfilesTest extends TestCase
     /**
      * @test
      */
-    public function exceptions_raised_by_requesting_access_token_will_be_caught_and_thrown_as_access_token_exception(
-    )
+    public function exceptions_raised_by_requesting_access_token_will_be_caught_and_thrown_as_access_token_exception()
     {
         $profile = Profile::create(['username' => 'test_user']);
 
@@ -229,12 +227,10 @@ class ProfilesTest extends TestCase
 
         $feed = $profile->feed($limit = 33);
 
-        Http::assertSent(fn (Request $r) => urldecode($r->url()) === $this->makeMediaUrl($token, 33));
+        Http::assertSent(fn(Request $r) => urldecode($r->url()) === $this->makeMediaUrl($token, 33));
 
         $this->assertCount(4, $feed);
     }
-
-
 
     /**
      *@test
@@ -250,7 +246,7 @@ class ProfilesTest extends TestCase
 
         $feed = $profile->feed();
 
-        Http::assertSent(fn (Request $r) => urldecode($r->url()) === $this->makeMediaUrl($token));
+        Http::assertSent(fn(Request $r) => urldecode($r->url()) === $this->makeMediaUrl($token));
 
         $this->assertInstanceOf(InstagramFeed::class, $feed);
     }
@@ -280,7 +276,7 @@ class ProfilesTest extends TestCase
         $feed = $profile->feed();
         $this->assertCount(4, $feed);
 
-        Http::assertSent(fn (Request $r) => urldecode($r->url()) === $this->makeMediaUrl($token));
+        Http::assertSent(fn(Request $r) => urldecode($r->url()) === $this->makeMediaUrl($token));
 
         $this->assertTrue(cache()->has($profile->cacheKey()));
         $this->assertEquals($feed->collect()->all(), cache()->get($profile->cacheKey()));
@@ -311,7 +307,7 @@ class ProfilesTest extends TestCase
         $feed = $profile->refreshFeed($limit = 44);
 
         Http::assertSent(
-            fn (Request $r) => urldecode($r->url()) === $this->makeMediaUrl($token, 44)
+            fn(Request $r) => urldecode($r->url()) === $this->makeMediaUrl($token, 44)
         );
         $this->assertCount(4, $feed);
         $this->assertEquals($feed->collect()->all(), cache()->get($profile->cacheKey()));
@@ -372,10 +368,7 @@ class ProfilesTest extends TestCase
         } catch (\Exception $e) {
             $this->assertEquals(['test' => 'test value'], cache()->get($profile->cacheKey()));
         }
-
     }
-
-
 
     private function makeMediaUrl($token, $limit = 20)
     {

@@ -53,7 +53,6 @@ class InstagramFeedTest extends TestCase
         $this->assertCount(2, $feed);
     }
 
-
     /**
      *@test
      */
@@ -101,7 +100,7 @@ class InstagramFeedTest extends TestCase
         $this->assertCount(4, $feed->collect());
 
         $feed->collect()
-            ->each(fn ($item) => $this->assertInstanceOf(InstagramMedia::class, $item));
+            ->each(fn($item) => $this->assertInstanceOf(InstagramMedia::class, $item));
     }
 
     private function setUpTestProfileWithFeed(string $username): Profile
@@ -125,6 +124,5 @@ class InstagramFeedTest extends TestCase
         Http::fake([
             'https://graph.instagram.com/*' => Http::response(json_decode(file_get_contents("./tests/basic_display_media_response_200_no_next_page.json"), true)),
         ]);
-
     }
 }

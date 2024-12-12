@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed\Commands;
-
 
 use Dymantic\InstagramFeed\Profile;
 use Illuminate\Console\Command;

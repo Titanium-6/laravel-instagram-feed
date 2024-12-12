@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed;
-
 
 use Exception;
 use Illuminate\Http\Request;
@@ -15,7 +13,6 @@ class AccessTokenController
     public function handleRedirect(Request $request)
     {
         $profile = Profile::usingIdentityToken($request->input('state', ''));
-
 
         if (!$profile) {
             Log::error('unable to retrieve IG profile');

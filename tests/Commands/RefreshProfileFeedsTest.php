@@ -2,18 +2,19 @@
 
 namespace Dymantic\InstagramFeed\Tests\Commands;
 
-use Dymantic\InstagramFeed\AccessToken;
-use Dymantic\InstagramFeed\Exceptions\BadTokenException;
-use Dymantic\InstagramFeed\Instagram;
-use Dymantic\InstagramFeed\Mail\FeedRefreshFailed;
-use Dymantic\InstagramFeed\Profile;
-use Dymantic\InstagramFeed\SimpleClient;
-use Dymantic\InstagramFeed\Tests\FakesInstagramCalls;
-use Dymantic\InstagramFeed\Tests\TestCase;
-use Illuminate\Http\Client\Request;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Mail;
+use Dymantic\InstagramFeed\{
+    Mail\FeedRefreshFailed,
+    Tests\FakesInstagramCalls,
+    Tests\TestCase,
+    AccessToken,
+    Instagram,
+    Profile
+};
+use Illuminate\Support\Facades\{
+    Artisan,
+    Http,
+    Mail
+};
 
 class RefreshProfileFeedsTest extends TestCase
 {
@@ -41,7 +42,6 @@ class RefreshProfileFeedsTest extends TestCase
 
         $this->assertTrue(cache()->has($profileA->cacheKey()));
         $this->assertTrue(cache()->has($profileB->cacheKey()));
-
     }
 
     /**
@@ -91,7 +91,7 @@ class RefreshProfileFeedsTest extends TestCase
 
         $this->assertFalse(cache()->has($authorized_profile->cacheKey()));
 
-        Mail::assertSent(FeedRefreshFailed::class, function($mail) {
+        Mail::assertSent(FeedRefreshFailed::class, function ($mail) {
             return $mail->hasTo('test@test.con');
         });
     }

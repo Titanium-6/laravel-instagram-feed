@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed;
-
 
 use Dymantic\InstagramFeed\Commands\CreateBasicProfile;
 use Dymantic\InstagramFeed\Commands\RefreshAuthorizedFeeds;
@@ -27,30 +25,38 @@ class InstagramFeedServiceProvider extends ServiceProvider
             ]);
         }
 
-        if (!class_exists('CreateInstagramFeedTokenTable') && !$this->migrationAlreadyPublished($filesystem,
-                '_create_instagram_feed_token_table.php')) {
+        if (!class_exists('CreateInstagramFeedTokenTable') && !$this->migrationAlreadyPublished(
+            $filesystem,
+            '_create_instagram_feed_token_table.php'
+        )) {
             $this->publishes([
-                __DIR__.'/../database/migrations/create_instagram_feed_token_table.php.stub' => App::databasePath('migrations/'.date('Y_m_d_His',
-                        time()).'_create_instagram_feed_token_table.php'),
+                __DIR__ . '/../database/migrations/create_instagram_feed_token_table.php.stub' => App::databasePath('migrations/' . date(
+                    'Y_m_d_His',
+                    time()
+                ) . '_create_instagram_feed_token_table.php'),
             ], 'migrations');
         }
 
-        if (!class_exists('CreateInstagramBasicProfileTable') && !$this->migrationAlreadyPublished($filesystem,
-                '_create_instagram_basic_profile_table.php')) {
+        if (!class_exists('CreateInstagramBasicProfileTable') && !$this->migrationAlreadyPublished(
+            $filesystem,
+            '_create_instagram_basic_profile_table.php'
+        )) {
             $this->publishes([
-                __DIR__.'/../database/migrations/create_instagram_basic_profile_table.php.stub' => App::databasePath('migrations/'.date('Y_m_d_His',
-                        time()).'_create_instagram_basic_profile_table.php'),
+                __DIR__ . '/../database/migrations/create_instagram_basic_profile_table.php.stub' => App::databasePath('migrations/' . date(
+                    'Y_m_d_His',
+                    time()
+                ) . '_create_instagram_basic_profile_table.php'),
             ], 'migrations');
         }
 
         if (Instagram::$registersRoutes) {
-            $this->loadRoutesFrom(__DIR__.'/routes.php');
+            $this->loadRoutesFrom(__DIR__ . '/routes.php');
         }
 
-        $this->loadViewsFrom(__DIR__.'/../views', 'instagram-feed');
+        $this->loadViewsFrom(__DIR__ . '/../views', 'instagram-feed');
 
         $this->publishes([
-            __DIR__.'/../config/instagram-feed.php' => App::configPath('instagram-feed.php')
+            __DIR__ . '/../config/instagram-feed.php' => App::configPath('instagram-feed.php')
         ]);
     }
 
@@ -61,11 +67,11 @@ class InstagramFeedServiceProvider extends ServiceProvider
      */
     protected function migrationAlreadyPublished(Filesystem $filesystem, $filename): bool
     {
-        return Collection::make($this->app->databasePath().DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR)
-                ->flatMap(function ($path) use ($filesystem, $filename) {
-                    return $filesystem->glob($path.'*'.$filename);
-                })
-                ->count() > 0;
+        return Collection::make($this->app->databasePath() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR)
+            ->flatMap(function ($path) use ($filesystem, $filename) {
+                return $filesystem->glob($path . '*' . $filename);
+            })
+            ->count() > 0;
     }
 
     public function register()
