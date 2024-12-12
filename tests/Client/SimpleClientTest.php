@@ -43,7 +43,7 @@ class SimpleClientTest extends TestCase
             'test.test' => Http::response(['test' => 'success'], 200)
         ]);
 
-        app()->bind(SimpleClient::class, function() {
+        app()->bind(SimpleClient::class, function () {
             return new SimpleClient();
         });
 
@@ -63,7 +63,7 @@ class SimpleClientTest extends TestCase
             'test.test' => Http::response(['error_message' => 'bad test request'], 400)
         ]);
 
-        app()->bind(SimpleClient::class, function() {
+        app()->bind(SimpleClient::class, function () {
             return new SimpleClient();
         });
 
@@ -74,12 +74,10 @@ class SimpleClientTest extends TestCase
         try {
             $response = SimpleClient::get('https://test.test');
             $this->fail('expected exception to be thrown');
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             $this->assertInstanceOf(HttpException::class, $e);
             $this->assertSame($expected_message, $e->getMessage());
         }
-
-
     }
 
     /**
@@ -96,12 +94,9 @@ class SimpleClientTest extends TestCase
         try {
             $response = SimpleClient::post('https://test.test', []);
             $this->fail('expected exception to be thrown');
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             $this->assertInstanceOf(HttpException::class, $e);
             $this->assertSame($expected_message, $e->getMessage());
         }
-
     }
-
-
 }

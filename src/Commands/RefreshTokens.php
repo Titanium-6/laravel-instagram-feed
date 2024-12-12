@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed\Commands;
-
 
 use Dymantic\InstagramFeed\AccessToken;
 use Dymantic\InstagramFeed\Instagram;

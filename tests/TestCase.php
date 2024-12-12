@@ -11,15 +11,12 @@ use Orchestra\Testbench\TestCase as Orchestra;
 abstract class TestCase extends Orchestra
 {
 
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
 
         $this->setUpDatabase($this->app);
-
     }
-
-
 
     /**
      * @param \Illuminate\Foundation\Application $app

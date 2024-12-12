@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed;
-
 
 use Dymantic\InstagramFeed\Exceptions\AccessTokenRequestException;
 use Dymantic\InstagramFeed\Exceptions\RequestTokenException;
@@ -38,8 +36,8 @@ class Profile extends Model
 
     public static function usingIdentityToken(string $token): ?self
     {
-        return tap(static::where('identity_token', $token)->first(), function($profile) {
-            if($profile) {
+        return tap(static::where('identity_token', $token)->first(), function ($profile) {
+            if ($profile) {
                 $profile->identity_token = null;
                 $profile->save();
             }
@@ -50,7 +48,7 @@ class Profile extends Model
     {
         $instagram = App::make(Instagram::class);
 
-        if(!$this->identity_token) {
+        if (!$this->identity_token) {
             $this->identity_token = Str::random(16);
             $this->save();
         }
@@ -88,7 +86,6 @@ class Profile extends Model
         return $this->setToken(array_merge(['access_token' => $token['access_token']], $user_details));
     }
 
-
     public function refreshToken()
     {
         $instagram = App::make(Instagram::class);
@@ -96,7 +93,6 @@ class Profile extends Model
         $new_token = $instagram->refreshToken($token);
         $this->latestToken()->update(['access_code' => $new_token['access_token']]);
     }
-
 
     protected function setToken($token_details)
     {
@@ -127,7 +123,7 @@ class Profile extends Model
 
     public function feed($limit = 20): InstagramFeed
     {
-        if(!$this->latestToken()) {
+        if (!$this->latestToken()) {
             return InstagramFeed::empty();
         }
         if (Cache::has($this->cacheKey())) {

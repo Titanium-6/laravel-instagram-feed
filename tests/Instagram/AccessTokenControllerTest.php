@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed\Tests\Instagram;
-
 
 use Dymantic\InstagramFeed\AccessToken;
 use Dymantic\InstagramFeed\Instagram;
@@ -38,8 +36,8 @@ class AccessTokenControllerTest extends TestCase
         $this->app['config']->set('instagram-feed.success_redirect_to', 'success');
 
         $get_calls = 0;
-        Http::fake(function(Request $request) use (&$get_calls) {
-            if($request->method() === 'POST') {
+        Http::fake(function (Request $request) use (&$get_calls) {
+            if ($request->method() === 'POST') {
                 return $this->validTokenDetails();
             }
             $get_calls++;
@@ -48,7 +46,6 @@ class AccessTokenControllerTest extends TestCase
 
         $profile = Profile::create(['username' => 'test_user']);
         $profile_identifier = $this->getProfileIdentifier($profile);
-
 
         $redirect_url = config('instagram-feed.auth_callback_route') . "?code=TEST_REQUEST_TOKEN&state={$profile_identifier}";
 
@@ -80,7 +77,6 @@ class AccessTokenControllerTest extends TestCase
 
         $this->assertCount(0, AccessToken::all());
     }
-
 
     /**
      *@test
@@ -126,7 +122,9 @@ class AccessTokenControllerTest extends TestCase
 
         $expected_error = sprintf(
             "Http request to %s failed with a status of %d and error message: %s",
-            Instagram::REQUEST_ACCESS_TOKEN_URL, 400, "bad test request"
+            Instagram::REQUEST_ACCESS_TOKEN_URL,
+            400,
+            "bad test request"
         );
         Log::shouldReceive('error')->once()->with($expected_error);
 
@@ -135,7 +133,7 @@ class AccessTokenControllerTest extends TestCase
         $response = $this->get($redirect_url);
         $response->assertRedirect(config('instagram-feed.failure_redirect_to'));
 
-        Http::assertSent(fn (Request $request) => $request->url() == Instagram::REQUEST_ACCESS_TOKEN_URL);
+        Http::assertSent(fn(Request $request) => $request->url() == Instagram::REQUEST_ACCESS_TOKEN_URL);
 
         $this->assertCount(0, AccessToken::all());
     }
@@ -144,8 +142,4 @@ class AccessTokenControllerTest extends TestCase
     {
         return Str::after($profile->getInstagramAuthUrl(), '&state=');
     }
-
-
-
-
 }

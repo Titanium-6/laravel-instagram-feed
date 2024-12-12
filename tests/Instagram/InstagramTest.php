@@ -75,7 +75,6 @@ class InstagramTest extends TestCase
         $this->assertEquals($expected, $uri);
     }
 
-
     /**
      * @test
      */
@@ -88,7 +87,6 @@ class InstagramTest extends TestCase
         ]);
 
         $instagram = app(Instagram::class);
-
 
         $this->assertEquals(
             $this->validTokenDetails(),
@@ -108,7 +106,6 @@ class InstagramTest extends TestCase
         ]);
 
         $instagram = app(Instagram::class);
-
 
         $this->assertEquals(
             $this->validUserDetails(),
@@ -130,7 +127,6 @@ class InstagramTest extends TestCase
 
         $instagram = app(Instagram::class);
 
-
         $this->assertEquals(
             $this->validLongLivedToken(),
             $instagram->exchangeToken($this->validTokenDetails())
@@ -149,7 +145,6 @@ class InstagramTest extends TestCase
 
         $instagram = app(Instagram::class);
 
-
         $this->assertEquals(
             $this->refreshedLongLivedToken(),
             $instagram->refreshToken('VALID_LONG_LIVED_TOKEN')
@@ -164,8 +159,13 @@ class InstagramTest extends TestCase
         $profile = Profile::create(['username' => 'test user']);
         $token = AccessToken::createFromResponseArray($profile, $this->validUserWithToken());
 
-        $expected_url = sprintf(Instagram::MEDIA_URL_FORMAT, $token->user_id, Instagram::MEDIA_FIELDS, 88,
-            $token->access_code);
+        $expected_url = sprintf(
+            Instagram::MEDIA_URL_FORMAT,
+            $token->user_id,
+            Instagram::MEDIA_FIELDS,
+            88,
+            $token->access_code
+        );
 
         Http::fake([
             'https://graph.instagram.com/*' => Http::response($this->exampleMediaResponse()),
@@ -185,7 +185,6 @@ class InstagramTest extends TestCase
             "18068269231170160",
             "18033634498224799",
         ];
-
 
         $this->assertCount(4, $feed);
         $this->assertSame($feed[0]->id, $expected_ids[0]);
@@ -223,7 +222,6 @@ class InstagramTest extends TestCase
             return $request->url() === $next_url;
         });
 
-
         $this->assertCount(7, $feed);
     }
 
@@ -240,7 +238,6 @@ class InstagramTest extends TestCase
             'user_fullname'        => 'test user real name',
             'user_profile_picture' => 'https://test.test/test_pic.jpg',
         ]);
-
 
         config(['instagram-feed.ignore_video' => true]);
 
@@ -292,15 +289,18 @@ class InstagramTest extends TestCase
         } catch (\Exception $e) {
             $this->assertInstanceOf(BadTokenException::class, $e);
         }
-
     }
 
     private function makeMediaUrl($token)
     {
         $limit = 20;
 
-        return sprintf(Instagram::MEDIA_URL_FORMAT, $token->user_id, Instagram::MEDIA_FIELDS, $limit,
-            $token->access_code);
+        return sprintf(
+            Instagram::MEDIA_URL_FORMAT,
+            $token->user_id,
+            Instagram::MEDIA_FIELDS,
+            $limit,
+            $token->access_code
+        );
     }
-
 }

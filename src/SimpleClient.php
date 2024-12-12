@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed;
-
 
 use Dymantic\InstagramFeed\Exceptions\BadTokenException;
 use Dymantic\InstagramFeed\Exceptions\HttpException;
@@ -17,7 +15,7 @@ class SimpleClient
     {
         $response = Http::accept('application/json')->get($url);
 
-        if($response->failed()) {
+        if ($response->failed()) {
             $message = $response->json('error_message', 'unknown error');
             throw HttpException::new($url, $response->status(), $message, $response->json());
         }
@@ -29,7 +27,7 @@ class SimpleClient
     {
         $response = Http::accept('application/json')->asForm()->post($url, $options);
 
-        if($response->failed()) {
+        if ($response->failed()) {
             $message = $response->json('error_message', 'unknown error');
             throw HttpException::new($url, $response->status(), $message, $response->json());
         }

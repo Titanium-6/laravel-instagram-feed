@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed;
-
 
 use Dymantic\InstagramFeed\Exceptions\BadTokenException;
 use Dymantic\InstagramFeed\Exceptions\HttpException;
@@ -17,7 +15,6 @@ class Instagram
     const REFRESH_TOKEN_FORMAT = "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=%s";
     const MEDIA_URL_FORMAT = "https://graph.instagram.com/%s/media?fields=%s&limit=%s&access_token=%s";
     const MEDIA_FIELDS = "caption,id,media_type,media_url,thumbnail_url,permalink,children{media_type,media_url},timestamp";
-
 
     private $client_id;
     private $client_secret;

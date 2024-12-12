@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed\Commands;
-
 
 use Dymantic\InstagramFeed\Exceptions\BadTokenException;
 use Dymantic\InstagramFeed\Mail\FeedRefreshFailed;
@@ -36,8 +34,9 @@ class RefreshAuthorizedFeeds extends Command
 
                     if (!empty($address = Config::get('instagram-feed.notify_on_error'))) {
                         Mail::to($address)
-                            ->send(new FeedRefreshFailed($profile->fresh(), $e->getMessage())
-                        );
+                            ->send(
+                                new FeedRefreshFailed($profile->fresh(), $e->getMessage())
+                            );
                     }
                 }
             });

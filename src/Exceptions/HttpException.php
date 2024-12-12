@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed\Exceptions;
-
 
 use Throwable;
 
@@ -23,7 +21,9 @@ class HttpException extends \Exception
             $response,
             sprintf(
                 "Http request to %s failed with a status of %d and error message: %s",
-                $url,  $status, $message
+                $url,
+                $status,
+                $message
             )
         );
     }
@@ -32,6 +32,4 @@ class HttpException extends \Exception
     {
         return $this->response;
     }
-
-
 }

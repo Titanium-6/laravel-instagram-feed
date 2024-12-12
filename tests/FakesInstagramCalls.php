@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Dymantic\InstagramFeed\Tests;
-
 
 use Illuminate\Http\Request;
 
@@ -33,10 +31,11 @@ trait FakesInstagramCalls
 
     private function deniedAuthRequest()
     {
-        return tap(new Request(), fn (Request $r) => $r->replace(['error' => 'access denied']));
+        return tap(new Request(), fn(Request $r) => $r->replace(['error' => 'access denied']));
     }
 
-    private function apiErrorDetails($message) {
+    private function apiErrorDetails($message)
+    {
         return [
             'error' => [
                 'message' => $message,
@@ -99,6 +98,4 @@ trait FakesInstagramCalls
             json_decode(file_get_contents("./tests/basic_display_media_response_200.json"), true) :
             json_decode(file_get_contents("./tests/basic_display_media_response_200_no_next_page.json"), true);
     }
-
-
 }

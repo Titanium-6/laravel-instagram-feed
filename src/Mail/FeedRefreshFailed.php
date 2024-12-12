@@ -18,9 +18,9 @@ class FeedRefreshFailed extends Mailable
     public function build()
     {
         return $this->subject('Unable to refresh IG feed for ' . $this->profile->username)
-                    ->markdown('instagram-feed::emails.feed-refresh-failed', [
-                        'has_auth' => $this->profile->fresh()->hasInstagramAccess(),
-                        'error_message' => $this->error_message,
-                    ]);
+            ->markdown('instagram-feed::emails.feed-refresh-failed', [
+                'has_auth' => $this->profile->fresh()->hasInstagramAccess(),
+                'error_message' => $this->error_message,
+            ]);
     }
 }

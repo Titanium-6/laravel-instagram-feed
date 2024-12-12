@@ -2,10 +2,12 @@
 
 namespace Dymantic\InstagramFeed\Tests\Tokens;
 
-use Dymantic\InstagramFeed\AccessToken;
-use Dymantic\InstagramFeed\Profile;
-use Dymantic\InstagramFeed\Tests\FakesInstagramCalls;
-use Dymantic\InstagramFeed\Tests\TestCase;
+use Dymantic\InstagramFeed\{
+    Tests\FakesInstagramCalls,
+    Tests\TestCase,
+    AccessToken,
+    Profile
+};
 
 class AccessTokenTest extends TestCase
 {

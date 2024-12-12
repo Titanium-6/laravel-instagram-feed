@@ -10,12 +10,11 @@ use IteratorAggregate;
 class InstagramFeed implements IteratorAggregate, Countable
 {
 
-    public function __construct(public ?Profile $profile, private array $items)
-    {}
+    public function __construct(public ?Profile $profile, private array $items) {}
 
     public static function for(string|Profile $profile, int $limit = 20): InstagramFeed
     {
-        if(is_string($profile)) {
+        if (is_string($profile)) {
             $profile = Profile::for($profile);
         }
 
@@ -34,7 +33,7 @@ class InstagramFeed implements IteratorAggregate, Countable
 
     public function refresh(int $limit = 20): void
     {
-        if($this->profile) {
+        if ($this->profile) {
             $this->items = $this->profile->refreshFeed($limit)->collect()->all();
         }
     }
