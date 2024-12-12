@@ -2,10 +2,12 @@
 
 namespace Dymantic\InstagramFeed;
 
-use Dymantic\InstagramFeed\Exceptions\BadTokenException;
-use Dymantic\InstagramFeed\Exceptions\HttpException;
-use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Config;
+
+use Dymantic\InstagramFeed\Exceptions\{
+    BadTokenException,
+    HttpException
+};
 
 class Instagram
 {
@@ -13,7 +15,7 @@ class Instagram
     const GRAPH_USER_INFO_FORMAT = "https://graph.instagram.com/%s?fields=id,username&access_token=%s";
     const EXCHANGE_TOKEN_FORMAT = "https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=%s&access_token=%s";
     const REFRESH_TOKEN_FORMAT = "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=%s";
-    const MEDIA_URL_FORMAT = "https://graph.instagram.com/%s/media?fields=%s&limit=%s&access_token=%s";
+    const MEDIA_URL_FORMAT = "https://graph.instagram.com/v21.0/%s/media?fields=%s&limit=%s&access_token=%s";
     const MEDIA_FIELDS = "caption,id,media_type,media_url,thumbnail_url,permalink,children{media_type,media_url},timestamp";
 
     private $client_id;
